@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: hello-world-app-monitor
+  labels:
+    release: prometheus
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      # Find the service with this label
+      app: hello-world
+  namespaceSelector:
+    matchNames:
+      # Look for the service in this namespace
+      - default
+  endpoints:
+  - port: http
+    path: /metrics
+    interval: 15s
