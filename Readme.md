@@ -3,6 +3,21 @@ This diagram illustrates the flow of code from development to a live deployment 
 
 <img width="546" height="856" alt="image" src="https://github.com/user-attachments/assets/9eb17311-de53-41d0-969f-82ae630183a6" />
 
+## Prerequisites  
+**Software & Tools:**
+Node.js and npm,
+Docker (Desktop or Engine),
+kubectl,
+kind,
+Helm,
+AWS CLI,
+eksctl
+
+**Accounts:**
+GitHub Account, 
+Docker Hub Account, 
+AWS Account
+
 ## Part I: Kubernetes Deployment and Operations
 
 This section details the process for containerizing, deploying, and managing the application on a Kubernetes cluster.
