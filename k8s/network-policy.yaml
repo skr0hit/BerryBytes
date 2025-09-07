@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ingress-only
+spec:
+  # Apply this policy to pods with the label 'app: hello-world'
+  podSelector:
+    matchLabels:
+      app: hello-world
+  policyTypes:
+  - Ingress
+  ingress:
+  # Allow traffic from...
+  - from:
+    # ...any pod in a namespace with the label 'name: ingress-nginx'
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+      # ...that also has the label 'app.kubernetes.io/component: controller'
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: controller
+    ports:
+    - protocol: TCP
+      port: 3000
