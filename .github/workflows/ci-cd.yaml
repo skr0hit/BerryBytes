@@ -7,8 +7,8 @@ on:
 
 env:
   DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/nodeapp
-  AWS_REGION: ${{ secrets.AWS_REGION }}
-  EKS_CLUSTER_NAME: ${{ secrets.EKS_CLUSTER_NAME }}
+  # AWS_REGION: ${{ secrets.AWS_REGION }}
+  # EKS_CLUSTER_NAME: ${{ secrets.EKS_CLUSTER_NAME }}
 
 permissions:
   id-token: write
@@ -49,29 +49,29 @@ jobs:
 # Hence For this part of the assignment lets assume we are deploying our application to AWS EKS.
 # So these are the steps we need to configure in the ci-cd.yaml
 
-  deploy: 
-    name: Deploy to EKS
-    needs: build-scan-and-push
-    runs-on: ubuntu-latest
-    steps:
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: ${{ env.AWS_REGION }}
+  # deploy: 
+  #   name: Deploy to EKS
+  #   needs: build-scan-and-push
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Configure AWS credentials
+  #       uses: aws-actions/configure-aws-credentials@v4
+  #       with:
+  #         role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+  #         aws-region: ${{ env.AWS_REGION }}
 
-      - name: Set up Kubernetes context
-        uses: aws-actions/amazon-eks-set-context@v1
-        with:
-          cluster-name: ${{ env.EKS_CLUSTER_NAME }}
+  #     - name: Set up Kubernetes context
+  #       uses: aws-actions/amazon-eks-set-context@v1
+  #       with:
+  #         cluster-name: ${{ env.EKS_CLUSTER_NAME }}
 
-      - name: Deploy to Kubernetes
-        run: |
-          kubectl set image deployment/hello-world-app hello-world-container=${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
-          kubectl rollout status deployment/hello-world-app
+  #     - name: Deploy to Kubernetes
+  #       run: |
+  #         kubectl set image deployment/hello-world-app hello-world-container=${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+  #         kubectl rollout status deployment/hello-world-app
 
-      - name: Rollback on failure
-        if: failure()
-        run: |
-          echo "Deployment failed. Rolling back..."
-          kubectl rollout undo deployment/hello-world-app
+  #     - name: Rollback on failure
+  #       if: failure()
+  #       run: |
+  #         echo "Deployment failed. Rolling back..."
+  #         kubectl rollout undo deployment/hello-world-app
