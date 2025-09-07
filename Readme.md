@@ -1,4 +1,7 @@
 ## High level Diagram 
+This diagram illustrates the flow of code from development to a live deployment in the Kubernetes cluster and the final state of the AWS infrastructure that is provisioned by your Terraform code.
+
+<img width="546" height="856" alt="image" src="https://github.com/user-attachments/assets/9eb17311-de53-41d0-969f-82ae630183a6" />
 
 ## Part I: Kubernetes Deployment and Operations
 
