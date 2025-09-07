@@ -70,3 +70,26 @@ terraform plan
 
 # Apply the configuration to create the resources
 terraform apply
+
+
+#Secure Instance Access
+#Access to the private EC2 instances is restricted and must be routed through the bastion host.
+
+#Connect to the Bastion Host:
+ssh -i /path/to/key.pem ec2-user@<BASTION_PUBLIC_IP>
+
+# Connect to a Private Instance: Use SSH agent forwarding to securely connect from the bastion to the private instance without exposing private keys.
+
+# On your local machine, add your key to the agent
+ssh-add /path/to/key.pem
+
+# Connect to the bastion with agent forwarding enabled
+ssh -A ec2-user@<BASTION_PUBLIC_IP>
+
+# From the bastion, connect to the private instance
+ssh ec2-user@<PRIVATE_INSTANCE_IP>
+
+# Resource Cleanup
+# To de-provision all infrastructure and prevent ongoing charges, run the destroy command.
+
+terraform destroy 
