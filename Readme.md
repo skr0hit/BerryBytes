@@ -2,6 +2,10 @@
 
 This section details the process for containerizing, deploying, and managing the application on a Kubernetes cluster.
 
+**Highlevel Diagram:**
+<img width="558" height="886" alt="image" src="https://github.com/user-attachments/assets/faf95e8a-08cb-44c7-ba1f-555ab6b5b47d" />
+
+
 ### Local Cluster Provisioning with `kind`
 For local development and testing, a multi-node Kubernetes cluster is provisioned using `kind`. The process is automated by the `setup-cluster.sh` script, which ensures the correct configuration, including necessary port mappings for the Ingress controller, is applied.
 
